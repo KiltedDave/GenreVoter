@@ -1,4 +1,7 @@
 ﻿@page "/genre"
+@using BlazorApp.Data
+@inject IGenreCounter genreService
+
 <h3>Genre Voter</h3>
 <div class="row">
     <div class="col-6">
@@ -36,8 +39,8 @@
     public string gotName { get; set; }
     public string hpName { get; set; }
 
-    public int SciFiCount { get; set; }
-    public int FantasyCount { get; set; }
+    public int SciFiCount = 0;
+    public int FantasyCount = 0;
 
     protected override void OnInitialized()
     {
@@ -48,8 +51,8 @@
         LotRCount = 0;
         GoTCount = 0;
         HPCount = 0;
-        SciFiCount = 0;
-        FantasyCount = 0;
+        SciFiCount = genreService.SciFiCounter;
+        FantasyCount = genreService.FantasyCounter;
 
         starWarsName = "StarWars";
         starTrekName = "StarTrek";
@@ -87,23 +90,25 @@
 
     private void HandleOnVoted(string result)
     {
-        switch (result)
-        {
-            case "Approved SciFi":
-                SciFiCount++;
-                break;
-            case "Approved Fantasy":
-                FantasyCount++;
-                break;
-            case "Rejected SciFi":
-                SciFiCount--;
-                break;
-            case "Rejected Fantasy":
-                FantasyCount--;
-                break;
-            default:
-                break;
-        }
+        SciFiCount = genreService.SciFiCounter;
+        FantasyCount = genreService.FantasyCounter;
+        //switch (result)
+        //{
+        //    case "Approved SciFi":
+        //        SciFiCount++;
+        //        break;
+        //    case "Approved Fantasy":
+        //        FantasyCount++;
+        //        break;
+        //    case "Rejected SciFi":
+        //        SciFiCount--;
+        //        break;
+        //    case "Rejected Fantasy":
+        //        FantasyCount--;
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
 }

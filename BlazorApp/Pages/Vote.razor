@@ -1,4 +1,7 @@
-﻿<button class="btn btn-primary" @onclick="ThumbsUp">
+﻿@using BlazorApp.Data
+@inject IGenreCounter genreService
+
+<button class="btn btn-primary" @onclick="ThumbsUp">
     <span class="oi oi-thumb-up">Oh Yeah</span>
 </button>
 <button class="btn btn-primary" @onclick="ThumbsDown">
@@ -13,10 +16,12 @@
 
     private void ThumbsUp()
     {
+        genreService.IncrementCounter(genreName, true);
         OnVoted.InvokeAsync($"Approved {genreName}");
     }
     private void ThumbsDown()
     {
+        genreService.IncrementCounter(genreName, false);
         OnVoted.InvokeAsync($"Rejected {genreName}");
     }
 }
