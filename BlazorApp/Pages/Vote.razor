@@ -1,0 +1,22 @@
+﻿<button class="btn btn-primary" @onclick="ThumbsUp">
+    <span class="oi oi-thumb-up">Oh Yeah</span>
+</button>
+<button class="btn btn-primary" @onclick="ThumbsDown">
+    <span class="oi oi-thumb-up">Hell No</span>
+</button>
+@code {
+    [Parameter]
+    public EventCallback<string> OnVoted { get; set; }
+
+    [Parameter]
+    public string genreName { get; set; }
+
+    private void ThumbsUp()
+    {
+        OnVoted.InvokeAsync($"Approved {genreName}");
+    }
+    private void ThumbsDown()
+    {
+        OnVoted.InvokeAsync($"Rejected {genreName}");
+    }
+}

@@ -1,0 +1,109 @@
+﻿@page "/genre"
+<h3>Genre Voter</h3>
+<div class="row">
+    <div class="col-6">
+        <h4>Sci-Fi - @SciFiCount</h4>
+        <ul>
+            <li @onclick="( () => OnChoiceSelected(starWarsName))">Star Wars - @StarWarsCount</li>
+            <li @onclick="( () => OnChoiceSelected(starTrekName))">Star Trek - @StarTrekCount</li>
+            <li @onclick="( () => OnChoiceSelected(starGateName))">Stargate - @StargateCount</li>
+        </ul>
+        <Vote OnVoted="HandleOnVoted" genreName="SciFi"></Vote>
+    </div>
+    <div class="col-6">
+        <h4>Fantasy - @FantasyCount</h4>
+        <ul>
+            <li @onclick="( () => OnChoiceSelected(lotrName))">Lord of the Rings - @LotRCount</li>
+            <li @onclick="( () => OnChoiceSelected(gotName))">Game of Thrones - @GoTCount</li>
+            <li @onclick="( () => OnChoiceSelected(hpName))">Harry Potter - @HPCount</li>
+        </ul>
+        <Vote OnVoted="HandleOnVoted" genreName="Fantasy"></Vote>
+    </div>
+</div>
+
+@code {
+    public int StarWarsCount { get; set; }
+    public int StarTrekCount { get; set; }
+    public int StargateCount { get; set; }
+    public int LotRCount { get; set; }
+    public int GoTCount { get; set; }
+    public int HPCount { get; set; }
+
+    public string starWarsName { get; set; }
+    public string starTrekName { get; set; }
+    public string starGateName { get; set; }
+    public string lotrName { get; set; }
+    public string gotName { get; set; }
+    public string hpName { get; set; }
+
+    public int SciFiCount { get; set; }
+    public int FantasyCount { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        StarWarsCount = 0;
+        StarTrekCount = 0;
+        StargateCount = 0;
+        LotRCount = 0;
+        GoTCount = 0;
+        HPCount = 0;
+        SciFiCount = 0;
+        FantasyCount = 0;
+
+        starWarsName = "StarWars";
+        starTrekName = "StarTrek";
+        starGateName = "StarGate";
+        lotrName = "LotR";
+        gotName = "Got";
+        hpName = "HP";
+    }
+
+    private void OnChoiceSelected(string selectedName)
+    {
+        switch (selectedName)
+        {
+            case "StarWars":
+                StarWarsCount++;
+                break;
+            case "StarTrek":
+                StarTrekCount++;
+                break;
+            case "StarGate":
+                StargateCount++;
+                break;
+            case "LotR":
+                LotRCount++;
+                break;
+            case "Got":
+                GoTCount++;
+                break;
+            case "HP":
+                HPCount++;
+                break;
+
+        }
+    }
+
+    private void HandleOnVoted(string result)
+    {
+        switch (result)
+        {
+            case "Approved SciFi":
+                SciFiCount++;
+                break;
+            case "Approved Fantasy":
+                FantasyCount++;
+                break;
+            case "Rejected SciFi":
+                SciFiCount--;
+                break;
+            case "Rejected Fantasy":
+                FantasyCount--;
+                break;
+            default:
+                break;
+        }
+    }
+
+}
